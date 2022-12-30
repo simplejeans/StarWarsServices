@@ -19,8 +19,3 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
-
-
-#celery -A starwars worker -l info -P eventlet
-#celery -A starwars worker -P eventlet -l INFO
-#celery -A starwars worker -P gevent -l INFO

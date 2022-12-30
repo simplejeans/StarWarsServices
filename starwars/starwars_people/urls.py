@@ -1,5 +1,3 @@
-from django.urls import path
-
 from starwars_people.views import DatasetDetailView
 from rest_framework.routers import SimpleRouter
 

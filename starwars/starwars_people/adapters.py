@@ -2,10 +2,10 @@ from datetime import datetime
 
 
 class StarWarsAdapters:
-
     planets = {}
 
     def set_person_homeworld(self, person: dict):
+
         person['homeworld'] = self.planets[person["homeworld"]]
 
     def parse_planet_name(self, planets_data: dict):
@@ -24,7 +24,7 @@ class StarWarsAdapters:
 
         return {key: value for key, value in person.items() if key in requires_columns}
 
-    def adapt(self, planets_data: dict, people_data: dict):
+    def adapt(self, planets_data: dict, people_data: dict) -> list[dict]:
         self.parse_planet_name(planets_data)
         required_people_data = []
         for person in people_data:
@@ -33,4 +33,3 @@ class StarWarsAdapters:
             some_person = self.drop_redundant_columns(person)
             required_people_data.append(some_person)
         return required_people_data
-
