@@ -1,6 +1,6 @@
 /starwars/datasets/
 
 /starwars/None.csv
-/.idea/
+/starwars/.idea/
 /starwars/db.sqlite3/
 /venv/
