@@ -1,6 +1,7 @@
-import uuid
+from datetime import datetime
 
 
-def generate_unique_name():
-    return str(uuid.uuid1())
+def create_file_name():
+    file_name = datetime.now().strftime('%b.%d.%Y_%I.%M%p')
+    return file_name
 

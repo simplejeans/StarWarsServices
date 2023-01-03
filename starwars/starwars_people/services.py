@@ -2,11 +2,13 @@ from abc import ABC
 from csv import DictWriter
 
 import petl
+from rest_framework.exceptions import APIException
+
 from starwars.settings import BASE_DIR
 from starwars_people.adapters import StarWarsAdapters
 from starwars_people.clients import StarWarsApiClient
 from starwars_people.models import Dataset
-from starwars_people.utils import generate_unique_name
+from starwars_people.utils import create_file_name
 from django.core.files import File
 import os
 
@@ -31,7 +33,7 @@ class DataWriterDBSaver(ABC):
 class CSVDataWriterAndDBSaver(DataWriterDBSaver):
 
     def __init__(self):
-        self.file_name = generate_unique_name()
+        self.file_name = create_file_name()
 
     def _write_data_and_save_to_file(self):
         keys = data[0].keys()
@@ -62,3 +64,15 @@ def make_pagination(file_name):
     file = get_csv_file_from_db(file_name=file_name)
     for i in range(0, len(file), 10):
         yield file[i:i + 10]
+
+
+def start_download_dataset_task():
+    from .tasks import download_dataset_task
+    try:
+        cache_task_key = str('qwerqwerqwer')
+        download_dataset_task.delay(cache_task_key)
+    except Exception as exc:
+        raise APIException(
+            {"Import task error": exc.args},
+        ) from exc
+    return cache_task_key
