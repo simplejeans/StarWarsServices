@@ -1,6 +1,11 @@
+from datetime import datetime
 import uuid
 
 
-def generate_unique_name():
-    return str(uuid.uuid1())
+def create_file_name():
+    file_name = datetime.now().strftime('%b.%d.%Y_%I.%M%p')
+    return file_name
 
+
+def generate_cache_task_key():
+    return str(uuid.uuid1())
